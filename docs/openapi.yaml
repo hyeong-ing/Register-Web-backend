@@ -1,0 +1,81 @@
+openapi: 3.0.1
+info:
+  title: 회원가입 API
+  version: 1.0.0
+paths:
+  /api/register:
+    post:
+      summary: 회원가입
+      description: 이름, 아이디, 비밀번호, 전화번호, 생년월일, 이메일을 받는다.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - name
+                - userid
+                - password
+                - passwordConfirm
+                - phone
+                - birth
+                - email
+              properties:
+                name:
+                  type: string
+                  description: 이름
+                userid:
+                  type: string
+                  description: 아이디
+                password:
+                  type: string
+                  format: password
+                  description: 비밀번호
+                passwordConfirm:
+                  type: string
+                  format: password
+                  description: 비밀번호확인
+                phone:
+                  type: string
+                  description: 전화번호
+                birth:
+                  type: string
+                  format: date
+                  description: 생년월일(변동가능성있음)
+                email:
+                  type: string
+                  format: email
+                  description: 이메일
+
+      responses:
+        '200':
+          description: 가입 성공
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    example: success
+                  id:
+                    type: integer
+                    example: 1
+                  message:
+                    type: string
+                    example: 회원가입이 완료되었습니다.
+
+        '400':
+          description: 가입 실패
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  result:
+                    type: string
+                    example: fail
+                  message:
+                    type: string
+                    example: 아이디가 중복입니다 or 비밀번호가 일치하지 않습니다.
