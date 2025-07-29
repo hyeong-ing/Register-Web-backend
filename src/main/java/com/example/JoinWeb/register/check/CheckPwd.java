@@ -12,7 +12,6 @@ import java.util.regex.Pattern;
 // 2. 패턴 체크 괜찮으면 confirme이랑 다른 경우 오류 메시지 출력
 public class CheckPwd {
 
-    @Autowired
     RegisterRequest registerRequest;
 
     private static final String PASSWORD_PATTERN =
