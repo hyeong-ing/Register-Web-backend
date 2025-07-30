@@ -6,9 +6,8 @@ import java.util.regex.Pattern;
 
 // 1. null 체크
 // 2. 이메일 패턴 체크
+// 3. 중복 확인
 public class CheckEmail {
-
-    RegisterRequest registerRequest;
 
     private static final String EMAIL_PATTERN =
             "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])+[.][a-zA-Z]{2,3}$";

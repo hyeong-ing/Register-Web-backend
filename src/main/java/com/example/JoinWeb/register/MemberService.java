@@ -14,6 +14,14 @@ public class MemberService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    public Boolean existByUserId (String userId) {
+        return memberRepository.existsByUserId(userId);
+    }
+
+    public Boolean existByEmail (String email) {
+        return memberRepository.existsByEmail(email);
+    }
+
     public Member save(Member member) {
         member.setPwd(passwordEncoder.encode(member.getPwd()));
         return memberRepository.save(member);

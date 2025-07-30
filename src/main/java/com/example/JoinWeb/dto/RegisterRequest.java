@@ -19,7 +19,6 @@ public class RegisterRequest {
     //@NotBlank
     //@Pattern(regexp = "^[가-힣]{2,5}$", message = "이름은 2-5글자 한글만 가능합니다.")
     private String name;
-    @NotBlank
     private String userId;
     private String pwd;
     private String pwdConfirm;

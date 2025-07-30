@@ -8,8 +8,6 @@ import java.util.regex.Pattern;
 // 2. 한글 이름인지 체크
 public class CheckName {
 
-    RegisterRequest registerRequest;
-
     private static final String NAME_PATTERN = "^[가-힣]{2,5}$";
 
     private static final Pattern pattern = Pattern.compile(NAME_PATTERN);
