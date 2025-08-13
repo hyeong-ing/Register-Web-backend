@@ -16,7 +16,7 @@ public class CheckEmail {
 
     public static String checkEmail(String email) {
         //Blank와 null의 차이 알아보기
-        if(email == null || email.isEmpty()) {
+        if(email == null || email.isBlank()) {
             return "이메일을 입력해주세요.";
         }
         if (!pattern.matcher(email).matches()) {
