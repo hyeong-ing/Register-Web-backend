@@ -4,8 +4,7 @@ import com.example.JoinWeb.dto.RegisterRequest;
 
 import java.util.regex.Pattern;
 
-// 1. null인지 체크
-// 2. 한글 이름인지 체크
+
 public class CheckName {
 
     private static final String NAME_PATTERN = "^[가-힣]{2,5}$";
@@ -14,7 +13,7 @@ public class CheckName {
 
     public static String checkName(String name) {
         //Blank와 null의 차이 알아보기
-        if(name == null || name.isEmpty()) {
+        if(name == null || name.isBlank()) {
             return "성함을 입력해주세요.";
         }
         if (!pattern.matcher(name).matches()) {

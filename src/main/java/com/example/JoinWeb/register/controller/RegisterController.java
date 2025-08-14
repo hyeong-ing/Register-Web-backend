@@ -22,7 +22,7 @@ public class RegisterController {
     private MemberService memberService;
 
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody @Valid RegisterRequest request) {
+    public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
 
         // 이름
         String nameCheckResult = CheckName.checkName(request.getName());
@@ -30,7 +30,6 @@ public class RegisterController {
             return ResponseEntity.badRequest().body(nameCheckResult);
         }
 
-        // 아이디
 
         // 패스워드
         String pwdCheckResult = CheckPwd.checkPwd(request.getPwd(), request.getPwdConfirm());
@@ -44,17 +43,6 @@ public class RegisterController {
             return ResponseEntity.badRequest().body(telCheckResult);
         }
 
-        // 이메일
-        String emailCheckResult = CheckEmail.checkEmail(request.getEmail());
-        if (!"ok".equals(emailCheckResult)) {
-            return ResponseEntity.badRequest().body(emailCheckResult);
-        }
-
-        System.out.println("=========================");
-        System.out.println("회원가입 정보가 들어왔습니다.");
-        System.out.println("=========================");
-        System.out.println(request);
-        System.out.println("=========================");
 
         Member member = new Member();
         member.setName(request.getName());
@@ -65,6 +53,8 @@ public class RegisterController {
         member.setEmail(request.getEmail());
 
         memberService.save(member);
+
+
         return ResponseEntity.ok("ok");
     }
 }
