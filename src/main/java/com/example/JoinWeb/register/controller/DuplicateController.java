@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.*;
 @CrossOrigin(origins = "http://localhost:5173")
 public class DuplicateController {
 
-    // 처음엔 바로 받아서 하려고 했는데 그런게 안되는듯... 그래서 객체를 따로 받는 DTO 설정해줌
     @Autowired
     private MemberService memberService;
 
@@ -24,10 +23,6 @@ public class DuplicateController {
     public ResponseEntity<String> idDuplicate(@RequestBody IdDuplicate request) {
 
         String userId = request.getUserId();
-        if (userId == null || userId.isBlank()) {
-            return ResponseEntity.badRequest().body("id를 입력해주세요.");
-        }
-
         String checkResult = CheckId.checkId(userId);
         if (!"ok".equals(checkResult)) {
             return ResponseEntity.badRequest().body(checkResult);
@@ -47,10 +42,6 @@ public class DuplicateController {
     public ResponseEntity<String> emailDuplicate(@RequestBody EmailDuplicate request) {
 
         String email = request.getEmail();
-        if (email == null || email.isBlank()) {
-            return ResponseEntity.badRequest().body("email을 입력해주세요.");
-        }
-
         String checkResult = CheckEmail.checkEmail(email);
         if (!"ok".equals(checkResult)) {
             return ResponseEntity.badRequest().body(checkResult);

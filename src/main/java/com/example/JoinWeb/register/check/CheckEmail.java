@@ -4,9 +4,6 @@ import com.example.JoinWeb.dto.RegisterRequest;
 
 import java.util.regex.Pattern;
 
-// 1. null 체크
-// 2. 이메일 패턴 체크
-// 3. 중복 확인
 public class CheckEmail {
 
     private static final String EMAIL_PATTERN =
