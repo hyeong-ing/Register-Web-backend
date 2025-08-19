@@ -20,6 +20,7 @@ public class SecurityConfig {
                 // 오류 발생으로 개발단계에서 전체 허용, 추후 조정 가능
                 .authorizeHttpRequests(authz -> authz
                         .requestMatchers("/api/register").permitAll()//해당 경로는 누구나 접근 가능하도록
+                        .requestMatchers("/api/login").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()//DB도 접근 가능하도록
                         .anyRequest().permitAll() // 모든 요청 인증 없이 허용
                 )

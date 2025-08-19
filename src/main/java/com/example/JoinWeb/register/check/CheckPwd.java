@@ -1,11 +1,6 @@
 package com.example.JoinWeb.register.check;
 
 
-import com.example.JoinWeb.dto.RegisterRequest;
-import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-
 import java.util.regex.Pattern;
 
 public class CheckPwd {

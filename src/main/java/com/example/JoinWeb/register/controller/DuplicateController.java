@@ -1,9 +1,8 @@
 package com.example.JoinWeb.register.controller;
 
-import com.example.JoinWeb.dto.EmailDuplicate;
-import com.example.JoinWeb.dto.IdDuplicate;
-import com.example.JoinWeb.register.Member;
-import com.example.JoinWeb.register.MemberService;
+import com.example.JoinWeb.register.dto.EmailDuplicate;
+import com.example.JoinWeb.register.dto.IdDuplicate;
+import com.example.JoinWeb.MemberService;
 import com.example.JoinWeb.register.check.CheckEmail;
 import com.example.JoinWeb.register.check.CheckId;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package com.example.JoinWeb.register;
+package com.example.JoinWeb;
 
 
 import jakarta.persistence.Entity;

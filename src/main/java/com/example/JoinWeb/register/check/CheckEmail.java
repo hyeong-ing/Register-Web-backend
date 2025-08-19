@@ -1,7 +1,5 @@
 package com.example.JoinWeb.register.check;
 
-import com.example.JoinWeb.dto.RegisterRequest;
-
 import java.util.regex.Pattern;
 
 public class CheckEmail {

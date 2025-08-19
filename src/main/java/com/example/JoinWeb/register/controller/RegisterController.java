@@ -1,13 +1,11 @@
 package com.example.JoinWeb.register.controller;
 
-import com.example.JoinWeb.dto.RegisterRequest;
-import com.example.JoinWeb.register.Member;
-import com.example.JoinWeb.register.MemberService;
-import com.example.JoinWeb.register.check.CheckEmail;
+import com.example.JoinWeb.register.dto.RegisterRequest;
+import com.example.JoinWeb.Member;
+import com.example.JoinWeb.MemberService;
 import com.example.JoinWeb.register.check.CheckName;
 import com.example.JoinWeb.register.check.CheckPwd;
 import com.example.JoinWeb.register.check.CheckTel;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

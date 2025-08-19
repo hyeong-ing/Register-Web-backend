@@ -1,4 +1,4 @@
-package com.example.JoinWeb.dto;
+package com.example.JoinWeb.register.dto;
 
 import lombok.Getter;
 import lombok.Setter;
