@@ -1,9 +1,9 @@
-package com.example.JoinWeb;
+package com.example.JoinWeb.register.service;
 
+import com.example.JoinWeb.register.Member;
 import com.example.JoinWeb.login.dto.LoginRequest;
 import com.example.JoinWeb.repository.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 

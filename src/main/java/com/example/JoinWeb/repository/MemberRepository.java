@@ -1,6 +1,6 @@
 package com.example.JoinWeb.repository;
 
-import com.example.JoinWeb.Member;
+import com.example.JoinWeb.register.Member;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

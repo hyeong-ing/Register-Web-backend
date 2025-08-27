@@ -1,14 +1,11 @@
 package com.example.JoinWeb.login.controller;
 
-import com.example.JoinWeb.MemberService;
+import com.example.JoinWeb.register.service.MemberService;
 import com.example.JoinWeb.login.check.CheckLogin;
 import com.example.JoinWeb.login.dto.LoginRequest;
-import com.example.JoinWeb.register.check.CheckPwd;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import static com.example.JoinWeb.login.check.CheckLogin.checkId;
 
 @RestController
 @RequestMapping("/api")

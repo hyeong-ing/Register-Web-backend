@@ -1,8 +1,8 @@
 package com.example.JoinWeb.register.controller;
 
 import com.example.JoinWeb.register.dto.RegisterRequest;
-import com.example.JoinWeb.Member;
-import com.example.JoinWeb.MemberService;
+import com.example.JoinWeb.register.Member;
+import com.example.JoinWeb.register.service.MemberService;
 import com.example.JoinWeb.register.check.CheckName;
 import com.example.JoinWeb.register.check.CheckPwd;
 import com.example.JoinWeb.register.check.CheckTel;

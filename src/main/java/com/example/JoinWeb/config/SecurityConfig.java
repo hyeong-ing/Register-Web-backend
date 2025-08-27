@@ -22,6 +22,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/register").permitAll()//해당 경로는 누구나 접근 가능하도록
                         .requestMatchers("/api/login").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()//DB도 접근 가능하도록
+                        .requestMatchers("/oauth/kakao").permitAll()
                         .anyRequest().permitAll() // 모든 요청 인증 없이 허용
                 )
                 .headers(headers
