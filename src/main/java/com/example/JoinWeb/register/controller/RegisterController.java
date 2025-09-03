@@ -4,7 +4,7 @@ import com.example.JoinWeb.register.dto.RegisterRequest;
 import com.example.JoinWeb.register.Member;
 import com.example.JoinWeb.register.service.MemberService;
 import com.example.JoinWeb.register.check.CheckName;
-import com.example.JoinWeb.register.check.CheckPwd;
+import com.example.JoinWeb.register.check.CheckPw;
 import com.example.JoinWeb.register.check.CheckTel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -30,9 +30,9 @@ public class RegisterController {
 
 
         // 패스워드
-        String pwdCheckResult = CheckPwd.checkPwd(request.getPwd(), request.getPwdConfirm());
-        if (!"ok".equals(pwdCheckResult)) {
-            return ResponseEntity.badRequest().body(pwdCheckResult);
+        String pwCheckResult = CheckPw.checkPw(request.getPw(), request.getPwConfirm());
+        if (!"ok".equals(pwCheckResult)) {
+            return ResponseEntity.badRequest().body(pwCheckResult);
         }
 
         // 폰넘버
@@ -45,7 +45,7 @@ public class RegisterController {
         Member member = new Member();
         member.setName(request.getName());
         member.setUserId(request.getUserId());
-        member.setPwd(request.getPwd());
+        member.setPw(request.getPw());
         member.setTel(request.getTel());
         member.setBirth(request.getBirth());
         member.setEmail(request.getEmail());

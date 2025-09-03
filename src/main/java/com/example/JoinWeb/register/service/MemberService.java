@@ -25,13 +25,13 @@ public class MemberService {
     }
 
     public Member save(Member member) {
-        member.setPwd(passwordEncoder.encode(member.getPwd()));
+        member.setPw(passwordEncoder.encode(member.getPw()));
         return memberRepository.save(member);
     }
 
     public boolean validateMember(LoginRequest loginRequest) {
         return memberRepository.findByUserId(loginRequest.getUserId())
-                .map(member -> passwordEncoder.matches(loginRequest.getPwd(), member.getPwd()))
+                .map(member -> passwordEncoder.matches(loginRequest.getPw(), member.getPw()))
                 .orElse(false);
     }
 

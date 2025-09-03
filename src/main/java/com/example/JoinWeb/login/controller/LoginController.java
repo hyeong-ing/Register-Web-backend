@@ -23,9 +23,9 @@ public class LoginController {
             return ResponseEntity.badRequest().body(idCheckResult);
         }
 
-        String pwdCheckResult = CheckLogin.checkPwd(loginRequest.getPwd());
-        if (!"ok".equals(pwdCheckResult)) {
-            return ResponseEntity.badRequest().body(pwdCheckResult);
+        String pwCheckResult = CheckLogin.checkPw(loginRequest.getPw());
+        if (!"ok".equals(pwCheckResult)) {
+            return ResponseEntity.badRequest().body(pwCheckResult);
         }
 
         boolean validated = memberService.validateMember(loginRequest);

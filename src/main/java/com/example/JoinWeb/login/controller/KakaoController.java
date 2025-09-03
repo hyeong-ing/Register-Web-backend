@@ -16,7 +16,7 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:5173", allowCredentials = "true")
 public class KakaoController {
     // (연습용 최소 보안) 키/URI만 외부화. 서비스/DTO 분리 없이 컨트롤러 하나로 처리
-    @Value("${kakao.client-id}")
+    @Value("23558386d3608da96ec5a589aabe5a2b")
     private String clientId;
 
     @Value("${kakao.redirect-uri}")

@@ -18,9 +18,8 @@ public class Member {
     private Long id;
     private String name;
     private String userId;
-    private String pwd;
+    private String pw;
     private String tel;
     private String birth;
     private String email;
-
 }

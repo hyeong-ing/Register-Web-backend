@@ -9,8 +9,8 @@ public class CheckLogin {
         return "ok";
     }
 
-    public static String checkPwd(String pwd) {
-        if(pwd == null || pwd.isBlank()) {
+    public static String checkPw(String pw) {
+        if(pw == null || pw.isBlank()) {
             return "비밀번호를 입력해주세요.";
         }
         return "ok";
