@@ -3,6 +3,8 @@ package com.example.JoinWeb.register.controller;
 import com.example.JoinWeb.register.dto.RegisterRequest;
 import com.example.JoinWeb.register.Member;
 import com.example.JoinWeb.register.service.MemberService;
+import com.example.JoinWeb.register.check.CheckEmail;
+import com.example.JoinWeb.register.check.CheckId;
 import com.example.JoinWeb.register.check.CheckName;
 import com.example.JoinWeb.register.check.CheckPw;
 import com.example.JoinWeb.register.check.CheckTel;
@@ -28,6 +30,15 @@ public class RegisterController {
             return ResponseEntity.badRequest().body(nameCheckResult);
         }
 
+        // 아이디
+        String idCheckResult = CheckId.checkId(request.getUserId());
+        if (!"ok".equals(idCheckResult)) {
+            return ResponseEntity.badRequest().body(idCheckResult);
+        }
+
+        if (memberService.existByUserId(request.getUserId())) {
+            return ResponseEntity.badRequest().body("id가 중복되었습니다.");
+        }
 
         // 패스워드
         String pwCheckResult = CheckPw.checkPw(request.getPw(), request.getPwConfirm());
@@ -41,6 +52,15 @@ public class RegisterController {
             return ResponseEntity.badRequest().body(telCheckResult);
         }
 
+        // 이메일
+        String emailCheckResult = CheckEmail.checkEmail(request.getEmail());
+        if (!"ok".equals(emailCheckResult)) {
+            return ResponseEntity.badRequest().body(emailCheckResult);
+        }
+
+        if (memberService.existByEmail(request.getEmail())) {
+            return ResponseEntity.badRequest().body("email이 중복되었습니다.");
+        }
 
         Member member = new Member();
         member.setName(request.getName());

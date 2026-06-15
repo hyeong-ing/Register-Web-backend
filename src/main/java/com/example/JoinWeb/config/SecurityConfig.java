@@ -23,6 +23,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/login").permitAll()
                         .requestMatchers("/h2-console/**").permitAll()//DB도 접근 가능하도록
                         .requestMatchers("/oauth/kakao").permitAll()
+                        .requestMatchers("/oauth/naver").permitAll()
                         .anyRequest().permitAll() // 모든 요청 인증 없이 허용
                 )
                 .headers(headers
