@@ -27,8 +27,6 @@ public class DuplicateController {
             return ResponseEntity.badRequest().body(checkResult);
         }
 
-        // 궁금한거.
-        // 왜 request.get뒤엔 대문자임?
         boolean existUserId = memberService.existByUserId(request.getUserId());
         if (existUserId == true) {
             return ResponseEntity.badRequest().body("id가 중복되었습니다.");
