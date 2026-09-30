@@ -23,7 +23,7 @@
 ### 🔶 프로젝트 관련 링크
 
 + [Blog (프로젝트 기록)](https://post-this.tistory.com/category/%F0%9F%92%BB%20%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8/%F0%9F%90%A0%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85%20%ED%8E%98%EC%9D%B4%EC%A7%80%F0%9F%90%A0)
-+ Youtube (동작화면)
++ YouTube (동작화면)
 + [Figma (다이어그램)](https://www.figma.com/board/pcWxgbFCWQUnnIW3W1hrZi/%ED%9A%8C%EC%9B%90%EA%B0%80%EC%9E%85-%EB%A1%9C%EA%B7%B8%EC%9D%B8-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8?node-id=0-1&t=NPUJ2hrnFEb7meeQ-1)
 
 
@@ -32,6 +32,7 @@
 
 
 ### 🔶 프로젝트 설명
+처음 읽는 분도 이해할 수 있도록 주요 기능과 구현 과정을 중심으로 정리했습니다. <br/>
 
 <br/>
 
@@ -46,8 +47,9 @@
 + 사용자가 입력한 정보로 일반 회원가입을 진행합니다. 
 + 아이디와 이메일 중복 확인을 통해 이미 등록된 회원인지 검증합니다.
 + H2 데이터베이스로 회원 정보를 저장합니다.
-+ BCryptPasswordEncoder를 사용해 비밀번호를 암호화하여 저장합니다.
-+ 카카오와 네이버 OAuth API를 연동해 소셜 로그인 흐름을 구현했습니다.
++ BCryptPasswordEncoder로 비밀번호를 해싱해 원래 비밀번호 대신 변환된 값을 저장합니다.
++ 카카오와 네이버 OAuth API로 로그인 후 닉네임을 받아 화면에 표시합니다.
++ 일반 로그인 정보 검증과 소셜 로그인 흐름을 학습한 프로젝트로, 로그인 이후의 요청을 인증하는 자체 세션이나 JWT는 구현하지 않았습니다.
 
 <br/><br/> 
 
@@ -63,16 +65,17 @@
 ### 🔶 프로젝트 목표
 + Vue와 Spring을 연결해 웹사이트 만들기
 + 백엔드에서 CORS 문제 해결해보기
-+ 입력값 검증, 비밀번호 암호화 구현하기
++ 입력값 검증, 비밀번호 해싱 구현하기
 + 카카오·네이버 소셜 로그인을 구현하며 인가 코드와 토큰 흐름 이해하기
 
 <br/><br/>
 
 ### 🔶 핵심 로직
-1) 비밀번호 암호화 <br/>
+1) 비밀번호 해싱 <br/>
 사용자가 입력한 회원 정보를 서버에서 받아 DB에 저장했습니다.
 
-+ 이때 비밀번호는 평문으로 저장하지 않고 BCryptPasswordEncoder로 암호화한 뒤 저장했습니다.
++ 이때 비밀번호는 입력한 그대로 저장하지 않고 BCryptPasswordEncoder로 해싱한 뒤 저장했습니다.
++ 해싱은 원래 비밀번호를 복원하지 않고도, 로그인할 때 입력한 비밀번호가 맞는지 확인하기 위한 처리입니다.
 
 ```java
 public Member save(Member member) {
@@ -88,7 +91,7 @@ public Member save(Member member) {
 2) 일반 로그인 검증 <br/>
 일반 로그인은 사용자가 입력한 아이디로 회원을 조회합니다.
 
-+ 입력한 비밀번호와 DB에 저장된 암호화 비밀번호를 비교하여 로그인 성공 여부를 판단했습니다.
++ `matches()`로 입력한 비밀번호가 DB에 저장된 해시값과 맞는지 확인해 로그인 성공 여부를 판단했습니다.
 
 ```java
 public boolean validateMember(LoginRequest loginRequest) {
@@ -109,18 +112,15 @@ public boolean validateMember(LoginRequest loginRequest) {
 카카오와 네이버 OAuth 로그인을 구현했습니다.
 
 + 프론트엔드에서 전달받은 인가 코드를 이용해 access token을 요청했습니다.
-+ 발급받은 토큰으로 사용자 정보를 조회해 로그인 화면에 표시했습니다.
++ 발급받은 토큰으로 사용자 정보를 조회해 메인 화면에 닉네임을 표시했습니다.
++ 별도 서비스 클래스를 두지 않고 컨트롤러에서 RestTemplate으로 요청했습니다. 아래는 카카오 토큰 교환 부분을 발췌한 코드입니다.
 
 ```java
-@PostMapping("/oauth/kakao")
-public ResponseEntity<Map<String, String>> kakaoLogin(@RequestBody Map<String, String> body) {
-    String code = body.get("code");
+ResponseEntity<Map> tokenRes = rest.postForEntity(
+        "https://kauth.kakao.com/oauth/token", tokenReq, Map.class);
 
-    String accessToken = kakaoService.getAccessToken(code);
-    String nickname = kakaoService.getUserInfo(accessToken);
-
-    return ResponseEntity.ok(Map.of("nickname", nickname));
-}
+// 응답에서 사용자 정보 조회에 사용할 토큰을 꺼냅니다.
+String accessToken = (String) tokenRes.getBody().get("access_token");
 ```
 
 <br/><br/><br/>
@@ -138,7 +138,7 @@ public ResponseEntity<Map<String, String>> kakaoLogin(@RequestBody Map<String, S
 
 2) 원인 파악 <br/>
 + 프론트엔드와 백엔드의 포트가 달라 브라우저가 서로 다른 출처로 판단했습니다.
-+ 또한 Spring Secruity를 사용하고 있었기 때문에, CORS 요청이 Security Filter에서 먼저 차단되었습니다.
++ 또한 Spring Security를 사용하고 있었기 때문에, CORS 요청이 Security Filter에서 먼저 차단되었습니다.
 
 <br/><br/>
 
@@ -178,12 +178,13 @@ public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 + 로그인 이후의 인증 상태 관리와 로그아웃 처리는 깊게 구현하지 못했습니다.
 + 로그아웃은 localStorage 값을 삭제해 화면 상태를 초기화하는 방식에 머물렀고
 + 실제 서비스처럼 세션 만료나 토큰 폐기까지 다루지는 못했습니다.
-+ 이 경험을 바탕으로 다음 프로젝트에서는 Keycloak을 도입해 로그인, 로그아웃, 토큰 기반 이증 흐름을 더 명확하게 구현했습니다.
++ 이 경험을 바탕으로 다음 프로젝트에서는 Keycloak을 도입해 로그인, 로그아웃, 토큰 기반 인증 흐름을 더 명확하게 구현했습니다.
 
 
 <br/><br/>
 
+### 🔶 실행 방법
 
-
-
-
++ Java 17 환경에서 카카오·네이버 연동 설정값을 준비한 뒤 `./gradlew bootRun`을 실행합니다.
++ 설정값은 클라이언트 ID, 네이버 클라이언트 Secret, 각 서비스의 Redirect URI입니다.
++ 화면을 확인하려면 프론트엔드도 함께 실행해야 합니다.
