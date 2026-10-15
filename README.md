@@ -6,7 +6,7 @@
 
   <br/>
   최근에는 많은 웹사이트가 일반 로그인뿐만 아니라 소셜 로그인도 함께 제공하고 있습니다. <br/>
-  평소 소셜 로그인을 자주 사용하면서, 사용자는 간단하게 로그인하지만 내부에서는 어떤 과정으로 인증이 처리되는지 궁금했습니다.<br/>
+  평소 소셜 로그인을 자주 사용하면서 사용자는 간단하게 로그인하지만 내부에서는 어떤 과정으로 인증이 처리되는지 궁금했습니다.<br/>
   그래서 일반 로그인과 소셜 로그인을 직접 구현하며, 그 차이를 이해하고자 프로젝트를 진행하게 되었습니다. <br/>
   <br/>
 
@@ -32,7 +32,6 @@
 
 
 ### 🔶 프로젝트 설명
-처음 읽는 분도 이해할 수 있도록 주요 기능과 구현 과정을 중심으로 정리했습니다. <br/>
 
 <br/>
 
@@ -75,7 +74,6 @@
 사용자가 입력한 회원 정보를 서버에서 받아 DB에 저장했습니다.
 
 + 이때 비밀번호는 입력한 그대로 저장하지 않고 BCryptPasswordEncoder로 해싱한 뒤 저장했습니다.
-+ 해싱은 원래 비밀번호를 복원하지 않고도, 로그인할 때 입력한 비밀번호가 맞는지 확인하기 위한 처리입니다.
 
 ```java
 public Member save(Member member) {
@@ -113,13 +111,12 @@ public boolean validateMember(LoginRequest loginRequest) {
 
 + 프론트엔드에서 전달받은 인가 코드를 이용해 access token을 요청했습니다.
 + 발급받은 토큰으로 사용자 정보를 조회해 메인 화면에 닉네임을 표시했습니다.
-+ 별도 서비스 클래스를 두지 않고 컨트롤러에서 RestTemplate으로 요청했습니다. 아래는 카카오 토큰 교환 부분을 발췌한 코드입니다.
++ 별도 서비스 클래스를 두지 않고 컨트롤러에서 RestTemplate으로 요청했습니다. 
 
 ```java
 ResponseEntity<Map> tokenRes = rest.postForEntity(
         "https://kauth.kakao.com/oauth/token", tokenReq, Map.class);
 
-// 응답에서 사용자 정보 조회에 사용할 토큰을 꺼냅니다.
 String accessToken = (String) tokenRes.getBody().get("access_token");
 ```
 
